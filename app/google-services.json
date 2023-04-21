@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "581252271694",
+    "project_id": "grzegorzbrzeczysczykiewi-c5701",
+    "storage_bucket": "grzegorzbrzeczysczykiewi-c5701.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581252271694:android:6bd276284eaf2d334cfd1f",
+        "android_client_info": {
+          "package_name": "com.example.grzegorzbrzeczysczykiewicz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "581252271694-p4k8i3t4c2o9up8flm03unccq70vn3se.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGdfzZGKUXPWDk0E95Mqohu9NSZXuFU6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "581252271694-p4k8i3t4c2o9up8flm03unccq70vn3se.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
