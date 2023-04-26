@@ -27,31 +27,31 @@ private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFact
 interface ApiService {
 
     @GET(QUERY_STRING_1)
-    fun getWordles1(): Call<ApiResponse>
+    fun getGuessers1(): Call<ApiResponse>
 
     @GET(QUERY_STRING_2)
-    fun getWordles2(): Call<ApiResponse>
+    fun getGuessers2(): Call<ApiResponse>
 
     @GET(QUERY_STRING_3)
-    fun getWordles3(): Call<ApiResponse>
+    fun getGuessers3(): Call<ApiResponse>
 
     @GET(QUERY_STRING_4)
-    fun getWordles4(): Call<ApiResponse>
+    fun getGuessers4(): Call<ApiResponse>
 
     @GET(QUERY_STRING_5)
-    fun getWordles5(): Call<ApiResponse>
+    fun getGuessers5(): Call<ApiResponse>
 
     @GET(QUERY_STRING_6)
-    fun getWordles6(): Call<ApiResponse>
+    fun getGuessers6(): Call<ApiResponse>
 
     @GET(QUERY_STRING_7)
-    fun getWordles7(): Call<ApiResponse>
+    fun getGuessers7(): Call<ApiResponse>
 
     @GET(QUERY_STRING_8)
-    fun getWordles8(): Call<ApiResponse>
+    fun getGuessers8(): Call<ApiResponse>
 
     @GET(QUERY_STRING_9)
-    fun getWordles9(): Call<ApiResponse>
+    fun getGuessers9(): Call<ApiResponse>
 }
 
 object SWAPI {
