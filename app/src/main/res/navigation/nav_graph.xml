@@ -18,7 +18,7 @@
         android:id="@+id/guesserFragment"
         android:name="com.example.grzegorzbrzeczysczykiewicz.GuesserFragment"
         android:label="fragment_wordle"
-        tools:layout="@layout/fragment_wordle" >
+        tools:layout="@layout/fragment_guesser" >
         <action
             android:id="@+id/action_guesserFragment_to_statsFragment"
             app:destination="@id/statsFragment" />
