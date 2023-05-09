@@ -37,8 +37,6 @@ class HomeFragment : Fragment() {
             binding.root.findNavController().navigate(action)
         }
 
-        //val adapter = GuesserAdapter()
-
         return binding.root
     }
 

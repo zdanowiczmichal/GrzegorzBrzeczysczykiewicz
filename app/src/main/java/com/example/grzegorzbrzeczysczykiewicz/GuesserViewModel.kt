@@ -3,13 +3,14 @@ package com.example.grzegorzbrzeczysczykiewicz
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.android.gms.common.api.Api
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class GuesserViewModel {
+class GuesserViewModel: ViewModel() {
     private val _response = MutableLiveData<List<Guesser>>()
     val response: MutableLiveData<List<Guesser>>
         get() = _response
@@ -33,20 +34,23 @@ class GuesserViewModel {
             }
 
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                var guesserFetched = mutableListOf<Guesser>()
                 val apiResponse: ApiResponse? = response.body()
-                //val guesserItemsList = apiResponse?.guesserItemList ?: listOf()
+                val guesserItemsList = apiResponse?.guesserItemsList ?: listOf()
 
-                //for (bookItems in bookItemsList) {
-                    //val bookVolumeInfo = bookItems.bookVolumeInfo
-                    //val smallThumbnail = bookItems.bookVolumeInfo.imageLink.smallThumbnail
-                    //val title = bookVolumeInfo.title
-                    //val subtitle = bookVolumeInfo.subtitle?:""
-                    //var authors = ""
-                    //val url = bookVolumeInfo.url
-                    //val imageUri = smallThumbnail.toUri().buildUpon().scheme("https").build()
-                    //val newGuesser = Guesser()
-                //}
-                //_response.value = newGuesser
+                for (guesserItems in guesserItemsList) {
+                    val name = guesserItems.name
+                    val height = guesserItems.height
+                    val mass = guesserItems.mass
+                    val hair_color = guesserItems.hair_color
+                    val skin_color = guesserItems.skin_color
+                    val eye_color = guesserItems.eye_color
+                    val birth_year = guesserItems.birth_year
+                    val gender = guesserItems.gender
+                    val newGuesser = Guesser(name, height, mass, hair_color, skin_color, eye_color, birth_year, gender)
+                    guesserFetched.add(newGuesser)
+                }
+                _response.value = guesserFetched
             }
         })
     }

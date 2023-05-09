@@ -32,6 +32,4 @@ class GuesserInfo {
     @Json(name = "gender")
     var gender: String = ""
 
-    //@Json(name = "homeworld")
-    //    var homeworld: String = ""
 }
