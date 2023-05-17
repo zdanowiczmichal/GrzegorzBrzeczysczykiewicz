@@ -23,11 +23,8 @@ class HomeFragment : Fragment() {
     lateinit var dbRef : DatabaseReference
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    lateinit var email: String
-    lateinit var password: String
     private lateinit var auth: FirebaseAuth
-
-    //private val viewModel: GuesserViewModel by viewModels()
+    private val viewModel: GuesserViewModel by viewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,23 +32,10 @@ class HomeFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // Initialize Firebase Auth
-        val user = Firebase.auth.currentUser
-        user?.let {
-            // Name, email address, and profile photo Url
-            val name = it.displayName
-            val email = it.email
-            // Check if user's email is verified
-            val emailVerified = it.isEmailVerified
-
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getIdToken() instead.
-            val uid = it.uid
-        }
 
         binding.button.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment()
-            binding.root.findNavController().navigate(action)
+            signIn(binding.username.text.toString(), binding.password.text.toString())
+
         }
         binding.signup.setOnClickListener{
             createAccount(binding.username.text.toString(), binding.password.text.toString())
@@ -76,6 +60,10 @@ class HomeFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
+                    val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment()
+                    binding.root.findNavController().navigate(action)
+                    dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString()).child("numQuizzes").setValue(0)
+                    dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString()).child("numCorrect").setValue(0)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
@@ -97,6 +85,8 @@ class HomeFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
+                    val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment()
+                    binding.root.findNavController().navigate(action)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)

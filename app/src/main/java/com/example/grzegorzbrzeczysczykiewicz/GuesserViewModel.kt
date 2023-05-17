@@ -5,14 +5,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.common.api.Api
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
 class GuesserViewModel: ViewModel() {
-    private val _response = MutableLiveData<List<Guesser>>()
-    val response: MutableLiveData<List<Guesser>>
+    private val _response = MutableLiveData<Guesser>()
+    val response: MutableLiveData<Guesser>
         get() = _response
 
     fun getGuesser() {
@@ -34,10 +38,10 @@ class GuesserViewModel: ViewModel() {
             }
 
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                var guesserFetched = mutableListOf<Guesser>()
                 val apiResponse: ApiResponse? = response.body()
                 val guesserItemsList = apiResponse?.guesserItemsList ?: listOf()
 
+                lateinit var newGuesser : Guesser
                 for (guesserItems in guesserItemsList) {
                     val name = guesserItems.name
                     val height = guesserItems.height
@@ -47,10 +51,9 @@ class GuesserViewModel: ViewModel() {
                     val eye_color = guesserItems.eye_color
                     val birth_year = guesserItems.birth_year
                     val gender = guesserItems.gender
-                    val newGuesser = Guesser(name, height, mass, hair_color, skin_color, eye_color, birth_year, gender)
-                    guesserFetched.add(newGuesser)
+                    newGuesser = Guesser(name, height, mass, hair_color, skin_color, eye_color, birth_year, gender)
                 }
-                _response.value = guesserFetched
+                _response.value = newGuesser
             }
         })
     }
