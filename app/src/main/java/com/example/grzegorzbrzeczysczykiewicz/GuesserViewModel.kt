@@ -14,10 +14,18 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class GuesserViewModel: ViewModel() {
+class GuesserViewModel : ViewModel() {
     private val _response = MutableLiveData<Guesser>()
     val response: MutableLiveData<Guesser>
         get() = _response
+
+    private var _userName: String = ""
+    val username: String
+        get() = _userName
+
+    fun setUserName(username : String ) {
+        _userName = username
+    }
 
     fun getGuesser() {
         val list = listOf(
@@ -41,7 +49,7 @@ class GuesserViewModel: ViewModel() {
                 val apiResponse: ApiResponse? = response.body()
                 val guesserItemsList = apiResponse?.guesserItemsList ?: listOf()
 
-                lateinit var newGuesser : Guesser
+                lateinit var newGuesser: Guesser
                 for (guesserItems in guesserItemsList) {
                     val name = guesserItems.name
                     val height = guesserItems.height
@@ -51,7 +59,16 @@ class GuesserViewModel: ViewModel() {
                     val eye_color = guesserItems.eye_color
                     val birth_year = guesserItems.birth_year
                     val gender = guesserItems.gender
-                    newGuesser = Guesser(name, height, mass, hair_color, skin_color, eye_color, birth_year, gender)
+                    newGuesser = Guesser(
+                        name,
+                        height,
+                        mass,
+                        hair_color,
+                        skin_color,
+                        eye_color,
+                        birth_year,
+                        gender
+                    )
                 }
                 _response.value = newGuesser
             }

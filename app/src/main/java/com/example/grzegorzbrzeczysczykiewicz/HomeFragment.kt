@@ -33,12 +33,19 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // Initialize Firebase Auth
 
-        binding.button.setOnClickListener {
-            signIn(binding.username.text.toString(), binding.password.text.toString())
+        viewModel.getGuesser()
+        viewModel.response.observe(viewLifecycleOwner) { guesser ->
+        }
 
+        binding.button.setOnClickListener {
+            val userName = binding.username.text.toString()
+            signIn(userName, binding.password.text.toString())
+            viewModel.setUserName(userName)
         }
         binding.signup.setOnClickListener{
-            createAccount(binding.username.text.toString(), binding.password.text.toString())
+            val userName = binding.username.text.toString()
+            createAccount(userName, binding.password.text.toString())
+            viewModel.setUserName(userName)
         }
         return binding.root
     }
@@ -62,7 +69,7 @@ class HomeFragment : Fragment() {
                     val user = auth.currentUser
                     val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment()
                     binding.root.findNavController().navigate(action)
-                    dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString()).child("numQuizzes").setValue(0)
+                    dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString()).child("numQuizzes").setValue(1)
                     dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString()).child("numCorrect").setValue(0)
                 } else {
                     // If sign in fails, display a message to the user.
