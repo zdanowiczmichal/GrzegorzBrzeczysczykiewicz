@@ -15,7 +15,10 @@ import androidx.lifecycle.Observer
 import kotlin.random.Random
 import com.example.grzegorzbrzeczysczykiewicz.databinding.FragmentGuesserBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlin.random.Random.Default.nextBoolean
@@ -33,7 +36,8 @@ class GuesserFragment : Fragment() {
         dbRef = Firebase.database.reference
 
         binding.button2.setOnClickListener {
-            binding.editTextTextPersonName.setText(viewModel.response.value?.name, TextView.BufferType.EDITABLE)
+            binding.editTextTextPersonName.setText(viewModel.response.value?.name, TextView.BufferType.EDITABLE
+            )
             if (binding.editTextTextPersonName.text.toString() == viewModel.response.value?.name) {
                 yes()
             }
@@ -86,14 +90,45 @@ class GuesserFragment : Fragment() {
             binding.editTextTextPersonName7.setText(viewModel.response.value?.birth_year)
         if (list1[7] != 99999)
             binding.editTextTextPersonName8.setText(viewModel.response.value?.gender)
-        binding.num.text = dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString()).child("numQuizzes").toString().toInt().toString()
+
+//        val x = dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString())
+//            .child("numQuizzes").get()
+        binding.num.text = viewModel.currQuizzes.toString()
+
+        pullFromDb()
 
         return binding.root
     }
+
     fun yes() {
-        var x = dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString()).child("numCorrect").toString().toInt()
-        x += 1
-        dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString()).child("numCorrect").setValue(x)
+        viewModel.updateCorr()
         binding.editTextTextPersonName.setTextColor(Color.parseColor("#AEF78E"));
     }
+
+    fun pullFromDb() {
+        dbRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                //ACCESS OBJECT WITH ALL ENTRIES WITHIN THE DATABASE
+                val allDBEntries = dataSnapshot.children
+                // ACCESS EACH VALUE IN DB, AND ADD TO ARRAYLIST
+                for (allGuesserEntries in allDBEntries) {
+                    for (singleGuesserEntry in allGuesserEntries.children) {
+                        val quiz = singleGuesserEntry.child("numQuizzes").getValue().toString()
+                        val corr = singleGuesserEntry.child("numCorrect").getValue().toString()
+                        val currentQuizzes = quiz.toInt()
+                        val currentCorrect = corr.toInt()
+                        viewModel.setCurrQuizzes(currentQuizzes)
+                        viewModel.setCurrCorrect(currentCorrect)
+
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("MainFragment", "Failed to read value.", error.toException())
+            }
+        })
+    }
+
 }

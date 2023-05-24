@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel
 import com.google.android.gms.common.api.Api
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import retrofit2.Call
@@ -15,6 +18,7 @@ import retrofit2.Response
 import java.util.*
 
 class GuesserViewModel : ViewModel() {
+
     private val _response = MutableLiveData<Guesser>()
     val response: MutableLiveData<Guesser>
         get() = _response
@@ -22,6 +26,16 @@ class GuesserViewModel : ViewModel() {
     private var _userName: String = ""
     val username: String
         get() = _userName
+
+    private var _currQuizzes: Int = 0
+    val currQuizzes: Int
+        get() = _currQuizzes
+
+    private var _currCorrect: Int = 0
+    val currCorrect: Int
+        get() = _currCorrect
+
+
 
     fun setUserName(username : String ) {
         _userName = username
@@ -70,8 +84,22 @@ class GuesserViewModel : ViewModel() {
                         gender
                     )
                 }
+
+
                 _response.value = newGuesser
             }
         })
     }
+    fun updateCorr() {
+        _currCorrect++
+    }
+
+    fun setCurrCorrect(newValue: Int ) {
+        _currCorrect = newValue
+    }
+
+    fun setCurrQuizzes(newValue: Int ) {
+        _currQuizzes = newValue
+    }
+
 }

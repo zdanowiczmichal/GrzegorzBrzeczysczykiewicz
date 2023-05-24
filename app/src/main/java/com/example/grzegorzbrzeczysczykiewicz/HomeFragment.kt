@@ -26,7 +26,6 @@ class HomeFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private val viewModel: GuesserViewModel by viewModels()
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dbRef = Firebase.database.reference
         auth = FirebaseAuth.getInstance()
@@ -113,4 +112,3 @@ class HomeFragment : Fragment() {
     }
 
 }
-
