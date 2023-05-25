@@ -31,12 +31,18 @@ class GuesserFragment : Fragment() {
     private val viewModel: GuesserViewModel by viewModels()
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentGuesserBinding.inflate(inflater, container, false)
         dbRef = Firebase.database.reference
 
+
         binding.button2.setOnClickListener {
-            binding.editTextTextPersonName.setText(viewModel.response.value?.name, TextView.BufferType.EDITABLE
+            binding.editTextTextPersonName.setText(
+                viewModel.response.value?.name, TextView.BufferType.EDITABLE
             )
             if (binding.editTextTextPersonName.text.toString() == viewModel.response.value?.name) {
                 yes()

@@ -62,7 +62,7 @@ class GuesserViewModel : ViewModel() {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 val apiResponse: ApiResponse? = response.body()
                 val guesserItemsList = apiResponse?.guesserItemsList ?: listOf()
-
+                val guesserList: MutableList<Guesser> = mutableListOf()
                 lateinit var newGuesser: Guesser
                 for (guesserItems in guesserItemsList) {
                     val name = guesserItems.name
@@ -82,11 +82,13 @@ class GuesserViewModel : ViewModel() {
                         eye_color,
                         birth_year,
                         gender
+
                     )
+                    guesserList.add(newGuesser)
                 }
 
 
-                _response.value = newGuesser
+                _response.value = guesserList[(0..guesserList.size).random()]
             }
         })
     }

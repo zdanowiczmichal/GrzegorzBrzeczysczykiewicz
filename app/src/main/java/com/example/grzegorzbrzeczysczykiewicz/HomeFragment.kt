@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
         // Initialize Firebase Auth
 
         viewModel.getGuesser()
+
         viewModel.response.observe(viewLifecycleOwner) { guesser ->
         }
 
