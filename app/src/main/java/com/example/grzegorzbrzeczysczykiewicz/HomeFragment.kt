@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.grzegorzbrzeczysczykiewicz.databinding.FragmentHomeBinding
@@ -24,7 +25,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    private val viewModel: GuesserViewModel by viewModels()
+    private val viewModel: GuesserViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dbRef = Firebase.database.reference

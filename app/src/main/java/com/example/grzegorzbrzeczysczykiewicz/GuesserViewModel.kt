@@ -88,12 +88,16 @@ class GuesserViewModel : ViewModel() {
                 }
 
 
-                _response.value = guesserList[(0..guesserList.size).random()]
+                _response.value = guesserList[(0..guesserList.size - 1).random()]
             }
         })
     }
     fun updateCorr() {
         _currCorrect++
+    }
+
+    fun updateQuiz() {
+        _currQuizzes++
     }
 
     fun setCurrCorrect(newValue: Int ) {
