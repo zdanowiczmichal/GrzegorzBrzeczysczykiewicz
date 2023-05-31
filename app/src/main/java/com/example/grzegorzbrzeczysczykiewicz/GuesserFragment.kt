@@ -29,14 +29,16 @@ class GuesserFragment : Fragment() {
     private var _binding: FragmentGuesserBinding? = null
     private val binding get() = _binding!!
     lateinit var dbRef: DatabaseReference
+    private lateinit var auth: FirebaseAuth
     private val viewModel: GuesserViewModel by activityViewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        pullFromDb()
         _binding = FragmentGuesserBinding.inflate(inflater, container, false)
         dbRef = Firebase.database.reference
-
-
+        auth = FirebaseAuth.getInstance()
+        binding.num.text = viewModel.currQuizzes.toString()
         var k = 0
         val list1: MutableList<Int> = mutableListOf()
         while (k < 8) {
@@ -169,10 +171,12 @@ class GuesserFragment : Fragment() {
 
 //        val x = dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString())
 //            .child("numQuizzes").get()
-        binding.num.text = viewModel.currQuizzes.toString()
 
-        pullFromDb()
 
+
+        viewModel.updateQuiz()
+        dbRef.child("quizStats").child(auth.uid.toString()).child("numQuizzes").setValue(viewModel.currQuizzes)
+        dbRef.child("quizStats").child(auth.uid.toString()).child("numCorrect").setValue(viewModel.currCorrect)
         return binding.root
     }
 

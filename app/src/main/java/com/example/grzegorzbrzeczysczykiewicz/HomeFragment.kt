@@ -41,12 +41,20 @@ class HomeFragment : Fragment() {
         binding.button.setOnClickListener {
             val userName = binding.username.text.toString()
             signIn(userName, binding.password.text.toString())
+            val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment()
+            binding.root.findNavController().navigate(action)
             viewModel.setUserName(userName)
         }
         binding.signup.setOnClickListener{
             val userName = binding.username.text.toString()
             createAccount(userName, binding.password.text.toString())
             viewModel.setUserName(userName)
+        }
+        binding.stats.setOnClickListener {
+            val userName = binding.username.text.toString()
+            signIn(userName, binding.password.text.toString())
+            val action = HomeFragmentDirections.actionHomeFragmentToStatsFragment()
+            binding.root.findNavController().navigate(action)
         }
         return binding.root
     }
@@ -70,8 +78,8 @@ class HomeFragment : Fragment() {
                     val user = auth.currentUser
                     val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment()
                     binding.root.findNavController().navigate(action)
-                    dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString()).child("numQuizzes").setValue(1)
-                    dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString()).child("numCorrect").setValue(0)
+                    dbRef.child("quizStats").child(user?.uid.toString()).child("numQuizzes").setValue(1)
+                    dbRef.child("quizStats").child(user?.uid.toString()).child("numCorrect").setValue(0)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
@@ -93,8 +101,6 @@ class HomeFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
-                    val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment()
-                    binding.root.findNavController().navigate(action)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)

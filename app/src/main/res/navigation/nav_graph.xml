@@ -13,16 +13,15 @@
         <action
             android:id="@+id/action_homeFragment_to_guesserFragment"
             app:destination="@id/guesserFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_statsFragment"
+            app:destination="@id/statsFragment" />
     </fragment>
     <fragment
         android:id="@+id/guesserFragment"
         android:name="com.example.grzegorzbrzeczysczykiewicz.GuesserFragment"
         android:label="fragment_wordle"
-        tools:layout="@layout/fragment_guesser" >
-        <action
-            android:id="@+id/action_guesserFragment_to_statsFragment"
-            app:destination="@id/statsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_guesser" />
     <fragment
         android:id="@+id/statsFragment"
         android:name="com.example.grzegorzbrzeczysczykiewicz.StatsFragment"
