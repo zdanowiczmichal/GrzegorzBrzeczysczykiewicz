@@ -21,7 +21,11 @@
         android:id="@+id/guesserFragment"
         android:name="com.example.grzegorzbrzeczysczykiewicz.GuesserFragment"
         android:label="fragment_wordle"
-        tools:layout="@layout/fragment_guesser" />
+        tools:layout="@layout/fragment_guesser" >
+        <argument
+            android:name="check"
+            app:argType="boolean" />
+    </fragment>
     <fragment
         android:id="@+id/statsFragment"
         android:name="com.example.grzegorzbrzeczysczykiewicz.StatsFragment"

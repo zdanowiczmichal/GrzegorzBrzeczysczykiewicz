@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         binding.button.setOnClickListener {
             val userName = binding.username.text.toString()
             signIn(userName, binding.password.text.toString())
-            val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment()
+            val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment(false)
             binding.root.findNavController().navigate(action)
             viewModel.setUserName(userName)
         }
@@ -76,7 +76,7 @@ class HomeFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
-                    val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment()
+                    val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment(false)
                     binding.root.findNavController().navigate(action)
                     dbRef.child("quizStats").child(user?.uid.toString()).child("numQuizzes").setValue(1)
                     dbRef.child("quizStats").child(user?.uid.toString()).child("numCorrect").setValue(0)

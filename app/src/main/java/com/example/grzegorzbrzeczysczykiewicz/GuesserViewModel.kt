@@ -27,8 +27,8 @@ class GuesserViewModel : ViewModel() {
     val username: String
         get() = _userName
 
-    private var _currQuizzes: Int = 0
-    val currQuizzes: Int
+    private var _currQuizzes = MutableLiveData<Int>(0)
+    val currQuizzes: LiveData<Int>
         get() = _currQuizzes
 
     private var _currCorrect: Int = 0
@@ -88,7 +88,7 @@ class GuesserViewModel : ViewModel() {
                 }
 
 
-                _response.value = guesserList[(0..guesserList.size - 1).random()]
+                _response.value = guesserList[(0 until guesserList.size).random()]
             }
         })
     }
@@ -97,7 +97,9 @@ class GuesserViewModel : ViewModel() {
     }
 
     fun updateQuiz() {
-        _currQuizzes++
+        var quizNum : Int = currQuizzes.value ?: 0
+        quizNum = quizNum.plus(1)
+        _currQuizzes.value = quizNum
     }
 
     fun setCurrCorrect(newValue: Int ) {
@@ -105,7 +107,7 @@ class GuesserViewModel : ViewModel() {
     }
 
     fun setCurrQuizzes(newValue: Int ) {
-        _currQuizzes = newValue
+        _currQuizzes.value = newValue
     }
 
 }
