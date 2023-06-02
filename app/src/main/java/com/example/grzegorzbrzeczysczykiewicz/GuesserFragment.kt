@@ -29,17 +29,17 @@ class GuesserFragment : Fragment() {
     private var _binding: FragmentGuesserBinding? = null
     private val binding get() = _binding!!
     var dbRef: DatabaseReference = Firebase.database.reference
-    private lateinit var auth: FirebaseAuth
     private val viewModel: GuesserViewModel by activityViewModels()
     private var check = true
-
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        pullFromDb()
         _binding = FragmentGuesserBinding.inflate(inflater, container, false)
         dbRef = Firebase.database.reference
-        auth = FirebaseAuth.getInstance()
+        viewModel.setAuth()
+        auth = viewModel.auth.value!!
 
+        pullFromDb()
         var k = 0
         val list1: MutableList<Int> = mutableListOf()
         while (k < 8) {
@@ -188,22 +188,17 @@ class GuesserFragment : Fragment() {
 
 
     fun pullFromDb() {
-        dbRef.addValueEventListener(object : ValueEventListener {
+        dbRef.child("quizStats").child(auth.uid.toString()).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 //ACCESS OBJECT WITH ALL ENTRIES WITHIN THE DATABASE
-                val allDBEntries = dataSnapshot.children
                 // ACCESS EACH VALUE IN DB, AND ADD TO ARRAYLIST
-                for (allGuesserEntries in allDBEntries) {
-                    for (singleGuesserEntry in allGuesserEntries.children) {
-                        val quiz = singleGuesserEntry.child("numQuizzes").getValue().toString()
-                        val corr = singleGuesserEntry.child("numCorrect").getValue().toString()
-                        val currentQuizzes = quiz.toInt()
-                        val currentCorrect = corr.toInt()
-                        viewModel.setCurrQuizzes(currentQuizzes)
-                        viewModel.setCurrCorrect(currentCorrect)
+                val quiz = dataSnapshot.child("numQuizzes").value.toString()
+                val corr = dataSnapshot.child("numCorrect").value.toString()
+                val currentQuizzes = quiz.toInt()
+                val currentCorrect = corr.toInt()
+                viewModel.setCurrQuizzes(currentQuizzes)
+                viewModel.setCurrCorrect(currentCorrect)
 
-                    }
-                }
             }
 
             override fun onCancelled(error: DatabaseError) {

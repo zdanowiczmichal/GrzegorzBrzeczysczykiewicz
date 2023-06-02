@@ -31,11 +31,13 @@ class GuesserViewModel : ViewModel() {
     val currQuizzes: LiveData<Int>
         get() = _currQuizzes
 
-    private var _currCorrect: Int = 0
-    val currCorrect: Int
+    private var _currCorrect = MutableLiveData<Int>(0)
+    val currCorrect: LiveData<Int>
         get() = _currCorrect
 
-
+    private var _auth = MutableLiveData<FirebaseAuth>()
+    val auth: LiveData<FirebaseAuth>
+        get() = _auth
 
     fun setUserName(username : String ) {
         _userName = username
@@ -93,7 +95,9 @@ class GuesserViewModel : ViewModel() {
         })
     }
     fun updateCorr() {
-        _currCorrect++
+        var corrNum: Int = currCorrect.value ?: 0
+        corrNum = corrNum.plus(1)
+        _currCorrect.value = corrNum
     }
 
     fun updateQuiz() {
@@ -103,7 +107,11 @@ class GuesserViewModel : ViewModel() {
     }
 
     fun setCurrCorrect(newValue: Int ) {
-        _currCorrect = newValue
+        _currCorrect.value = newValue
+    }
+
+    fun setAuth() {
+        _auth.value = FirebaseAuth.getInstance()
     }
 
     fun setCurrQuizzes(newValue: Int ) {

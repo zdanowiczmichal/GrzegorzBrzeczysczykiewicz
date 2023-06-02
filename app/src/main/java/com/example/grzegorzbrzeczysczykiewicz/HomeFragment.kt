@@ -24,12 +24,11 @@ class HomeFragment : Fragment() {
     lateinit var dbRef : DatabaseReference
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var auth: FirebaseAuth
     private val viewModel: GuesserViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dbRef = Firebase.database.reference
-        auth = FirebaseAuth.getInstance()
+        viewModel.setAuth()
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         // Initialize Firebase Auth
 
@@ -62,7 +61,7 @@ class HomeFragment : Fragment() {
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
+        val currentUser = viewModel.auth.value!!.currentUser
 //        if (currentUser != null) {
 //            reload()
 //        }
@@ -70,12 +69,12 @@ class HomeFragment : Fragment() {
 
     private fun createAccount(email: String, password: String) {
         // [START create_user_with_email]
-        auth.createUserWithEmailAndPassword(email, password)
+        viewModel.auth.value!!.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
+                    val user = viewModel.auth.value!!.currentUser
                     val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment(false)
                     binding.root.findNavController().navigate(action)
                     dbRef.child("quizStats").child(user?.uid.toString()).child("numQuizzes").setValue(1)
@@ -95,12 +94,12 @@ class HomeFragment : Fragment() {
 
     private fun signIn(email: String, password: String) {
         // [START sign_in_with_email]
-        auth.signInWithEmailAndPassword(email, password)
+        viewModel.auth.value!!.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
+                    val user = viewModel.auth.value!!.currentUser
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
