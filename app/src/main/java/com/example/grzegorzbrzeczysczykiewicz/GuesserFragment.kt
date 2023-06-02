@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -175,6 +176,7 @@ class GuesserFragment : Fragment() {
                 dbRef.child("quizStats").child(auth.uid.toString()).child("numQuizzes").setValue(viewModel.currQuizzes)
                 dbRef.child("quizStats").child(auth.uid.toString()).child("numCorrect").setValue(viewModel.currCorrect)
                 check = false
+                binding.button2.isEnabled = false
             }
 
 //        val x = dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString())
@@ -192,8 +194,8 @@ class GuesserFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 //ACCESS OBJECT WITH ALL ENTRIES WITHIN THE DATABASE
                 // ACCESS EACH VALUE IN DB, AND ADD TO ARRAYLIST
-                val quiz = dataSnapshot.child("numQuizzes").value.toString()
-                val corr = dataSnapshot.child("numCorrect").value.toString()
+                val quiz = dataSnapshot.child("numQuizzes").child("value").value.toString()
+                val corr = dataSnapshot.child("numCorrect").child("value").value.toString()
                 val currentQuizzes = quiz.toInt()
                 val currentCorrect = corr.toInt()
                 viewModel.setCurrQuizzes(currentQuizzes)
@@ -208,25 +210,4 @@ class GuesserFragment : Fragment() {
         })
     }
 
-
-    fun setDb() {
-        dbRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //ACCESS OBJECT WITH ALL ENTRIES WITHIN THE DATABASE
-                val allDBEntries = dataSnapshot.children
-                // ACCESS EACH VALUE IN DB, AND ADD TO ARRAYLIST
-                for (allGuesserEntries in allDBEntries) {
-                    for (singleGuesserEntry in allGuesserEntries.children) {
-                        singleGuesserEntry.child("numQuizzes").value
-                        singleGuesserEntry.child("numCorrect").value
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                Log.w("MainFragment", "Failed to read value.", error.toException())
-            }
-        })
-    }
 }

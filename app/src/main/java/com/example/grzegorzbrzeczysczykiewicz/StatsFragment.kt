@@ -50,10 +50,10 @@ class StatsFragment : Fragment() {
     fun pullFromDb() {
         dbRef.child("quizStats").child(auth.uid.toString()).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //ACCESS OBJECT WITH ALL ENTRIES WITHIN THE DATABASE
+                //ACCESS OBJECT WITH ALL ENTRIES WITHIN THE DATABASE+
                 // ACCESS EACH VALUE IN DB, AND ADD TO ARRAYLIST
-                val quiz = dataSnapshot.child("numQuizzes").value.toString()
-                val corr = dataSnapshot.child("numCorrect").value.toString()
+                val quiz = dataSnapshot.child("numQuizzes").child("value").value.toString()
+                val corr = dataSnapshot.child("numCorrect").child("value").value.toString()
                 val currentQuizzes = quiz.toInt()
                 val currentCorrect = corr.toInt()
                 viewModel.setCurrQuizzes(currentQuizzes)
