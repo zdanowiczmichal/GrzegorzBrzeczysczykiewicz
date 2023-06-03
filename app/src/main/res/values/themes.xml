@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.GrzegorzBrzeczysczykiewicz" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
+
         <item name="colorPrimary">@color/garnet</item>
         <item name="colorPrimaryVariant">@color/black_bean</item>
         <item name="colorOnPrimary">@color/light_blue</item>

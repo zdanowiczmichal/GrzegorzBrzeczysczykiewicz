@@ -73,111 +73,115 @@ class GuesserFragment : Fragment() {
             binding.editTextTextPersonName7.setText(viewModel.response.value?.birth_year)
         if (list1[7] != 99999)
             binding.editTextTextPersonName8.setText(viewModel.response.value?.gender)
-        var args = GuesserFragmentArgs.fromBundle(requireArguments())
-            binding.button2.setOnClickListener {
-                if (binding.editTextTextPersonName.text.toString() == viewModel.response.value?.name && list1[0] == 99999) {
-                    viewModel.updateCorr()
-                    binding.editTextTextPersonName.setTextColor(Color.parseColor("#AEF78E"))
-                    binding.editTextTextPersonName.setText(
-                        viewModel.response.value?.name, TextView.BufferType.EDITABLE
-                    )
-                } else if (binding.editTextTextPersonName.text.toString() != viewModel.response.value?.name && list1[0] == 99999) {
-                    binding.editTextTextPersonName.setTextColor(Color.parseColor("#FB3640"))
-                    binding.editTextTextPersonName.setText(
-                        viewModel.response.value?.name, TextView.BufferType.EDITABLE
-                    )
-                }
-                if (binding.editTextTextPersonName2.text.toString() == viewModel.response.value?.height && list1[1] == 99999) {
-                    viewModel.updateCorr()
-                    binding.editTextTextPersonName2.setTextColor(Color.parseColor("#AEF78E"))
-                    binding.editTextTextPersonName2.setText(
-                        viewModel.response.value?.height, TextView.BufferType.EDITABLE
-                    )
-                } else if (binding.editTextTextPersonName2.text.toString() == viewModel.response.value?.height && list1[0] == 99999) {
-                    binding.editTextTextPersonName2.setTextColor(Color.parseColor("#FB3640"))
-                    binding.editTextTextPersonName2.setText(
-                        viewModel.response.value?.height, TextView.BufferType.EDITABLE
-                    )
-                }
-                if (binding.editTextTextPersonName3.text.toString() == viewModel.response.value?.mass && list1[2] == 99999) {
-                    viewModel.updateCorr()
-                    binding.editTextTextPersonName3.setTextColor(Color.parseColor("#AEF78E"))
-                    binding.editTextTextPersonName3.setText(
-                        viewModel.response.value?.mass, TextView.BufferType.EDITABLE
-                    )
-                } else if (binding.editTextTextPersonName3.text.toString() != viewModel.response.value?.mass && list1[2] == 99999) {
-                    binding.editTextTextPersonName3.setTextColor(Color.parseColor("#FB3640"))
-                    binding.editTextTextPersonName3.setText(
-                        viewModel.response.value?.mass, TextView.BufferType.EDITABLE
-                    )
-                }
-                if (binding.editTextTextPersonName4.text.toString() == viewModel.response.value?.hair_color && list1[3] == 99999) {
-                    viewModel.updateCorr()
-                    binding.editTextTextPersonName4.setTextColor(Color.parseColor("#AEF78E"))
-                    binding.editTextTextPersonName4.setText(
-                        viewModel.response.value?.hair_color, TextView.BufferType.EDITABLE
-                    )
-                } else if (binding.editTextTextPersonName4.text.toString() != viewModel.response.value?.hair_color && list1[3] == 99999) {
-                    binding.editTextTextPersonName4.setTextColor(Color.parseColor("#FB3640"))
-                    binding.editTextTextPersonName4.setText(
-                        viewModel.response.value?.hair_color, TextView.BufferType.EDITABLE
-                    )
-                }
-                if (binding.editTextTextPersonName5.text.toString() == viewModel.response.value?.skin_color && list1[4] == 99999) {
-                    viewModel.updateCorr()
-                    binding.editTextTextPersonName5.setTextColor(Color.parseColor("#AEF78E"))
-                    binding.editTextTextPersonName5.setText(
-                        viewModel.response.value?.skin_color, TextView.BufferType.EDITABLE
-                    )
-                } else if (binding.editTextTextPersonName5.text.toString() != viewModel.response.value?.skin_color && list1[4] == 99999) {
-                    binding.editTextTextPersonName5.setTextColor(Color.parseColor("#FB3640"))
-                    binding.editTextTextPersonName5.setText(
-                        viewModel.response.value?.skin_color, TextView.BufferType.EDITABLE
-                    )
-                }
-                if (binding.editTextTextPersonName6.text.toString() == viewModel.response.value?.eye_color && list1[5] == 99999) {
-                    viewModel.updateCorr()
-                    binding.editTextTextPersonName6.setTextColor(Color.parseColor("#AEF78E"))
-                    binding.editTextTextPersonName6.setText(
-                        viewModel.response.value?.eye_color, TextView.BufferType.EDITABLE
-                    )
-                } else if (binding.editTextTextPersonName6.text.toString() != viewModel.response.value?.eye_color && list1[5] == 99999) {
-                    binding.editTextTextPersonName6.setTextColor(Color.parseColor("#FB3640"))
-                    binding.editTextTextPersonName6.setText(
-                        viewModel.response.value?.eye_color, TextView.BufferType.EDITABLE
-                    )
-                }
-                if (binding.editTextTextPersonName7.text.toString() == viewModel.response.value?.birth_year && list1[6] == 99999) {
-                    viewModel.updateCorr()
-                    binding.editTextTextPersonName7.setTextColor(Color.parseColor("#AEF78E"))
-                    binding.editTextTextPersonName7.setText(
-                        viewModel.response.value?.birth_year, TextView.BufferType.EDITABLE
-                    )
-                } else if (binding.editTextTextPersonName7.text.toString() != viewModel.response.value?.birth_year && list1[6] == 99999) {
-                    binding.editTextTextPersonName7.setTextColor(Color.parseColor("#FB3640"))
-                    binding.editTextTextPersonName7.setText(
-                        viewModel.response.value?.birth_year, TextView.BufferType.EDITABLE
-                    )
-                }
-                if (binding.editTextTextPersonName8.text.toString() == viewModel.response.value?.gender && list1[7] == 99999) {
-                    viewModel.updateCorr()
-                    binding.editTextTextPersonName8.setTextColor(Color.parseColor("#AEF78E"))
-                    binding.editTextTextPersonName8.setText(
-                        viewModel.response.value?.gender, TextView.BufferType.EDITABLE
-                    )
-                } else if (binding.editTextTextPersonName8.text.toString() != viewModel.response.value?.gender && list1[7] == 99999) {
-                    binding.editTextTextPersonName8.setTextColor(Color.parseColor("#FB3640"))
-                    binding.editTextTextPersonName8.setText(
-                        viewModel.response.value?.gender, TextView.BufferType.EDITABLE
-                    )
-                }
-                binding.num.text = viewModel.currQuizzes.toString()
-                viewModel.updateQuiz()
-                dbRef.child("quizStats").child(auth.uid.toString()).child("numQuizzes").setValue(viewModel.currQuizzes)
-                dbRef.child("quizStats").child(auth.uid.toString()).child("numCorrect").setValue(viewModel.currCorrect)
-                check = false
-                binding.button2.isEnabled = false
+        binding.button2.setOnClickListener {
+            binding.button2.animate().apply {
+                duration = 500
+                rotationXBy(360f)
+                rotationYBy(360f)
+            }.start()
+            if (binding.editTextTextPersonName.text.toString() == viewModel.response.value?.name && list1[0] == 99999) {
+                viewModel.updateCorr()
+                binding.editTextTextPersonName.setTextColor(Color.parseColor("#AEF78E"))
+                binding.editTextTextPersonName.setText(
+                    viewModel.response.value?.name, TextView.BufferType.EDITABLE
+                )
+            } else if (binding.editTextTextPersonName.text.toString() != viewModel.response.value?.name && list1[0] == 99999) {
+                binding.editTextTextPersonName.setTextColor(Color.parseColor("#FB3640"))
+                binding.editTextTextPersonName.setText(
+                    viewModel.response.value?.name, TextView.BufferType.EDITABLE
+                )
             }
+            if (binding.editTextTextPersonName2.text.toString() == viewModel.response.value?.height && list1[1] == 99999) {
+                viewModel.updateCorr()
+                binding.editTextTextPersonName2.setTextColor(Color.parseColor("#AEF78E"))
+                    binding.editTextTextPersonName2.setText(
+                    viewModel.response.value?.height, TextView.BufferType.EDITABLE
+                )
+            } else if (binding.editTextTextPersonName2.text.toString() != viewModel.response.value?.height && list1[1] == 99999) {
+                binding.editTextTextPersonName2.setTextColor(Color.parseColor("#FB3640"))
+                binding.editTextTextPersonName2.setText(
+                    viewModel.response.value?.height, TextView.BufferType.EDITABLE
+                )
+            }
+            if (binding.editTextTextPersonName3.text.toString() == viewModel.response.value?.mass && list1[2] == 99999) {
+                viewModel.updateCorr()
+                binding.editTextTextPersonName3.setTextColor(Color.parseColor("#AEF78E"))
+                binding.editTextTextPersonName3.setText(
+                    viewModel.response.value?.mass, TextView.BufferType.EDITABLE
+                )
+            } else if (binding.editTextTextPersonName3.text.toString() != viewModel.response.value?.mass && list1[2] == 99999) {
+                binding.editTextTextPersonName3.setTextColor(Color.parseColor("#FB3640"))
+                binding.editTextTextPersonName3.setText(
+                    viewModel.response.value?.mass, TextView.BufferType.EDITABLE
+                )
+            }
+            if (binding.editTextTextPersonName4.text.toString() == viewModel.response.value?.hair_color && list1[3] == 99999) {
+                viewModel.updateCorr()
+                binding.editTextTextPersonName4.setTextColor(Color.parseColor("#AEF78E"))
+                binding.editTextTextPersonName4.setText(
+                    viewModel.response.value?.hair_color, TextView.BufferType.EDITABLE
+                )
+            } else if (binding.editTextTextPersonName4.text.toString() != viewModel.response.value?.hair_color && list1[3] == 99999) {
+                binding.editTextTextPersonName4.setTextColor(Color.parseColor("#FB3640"))
+                binding.editTextTextPersonName4.setText(
+                    viewModel.response.value?.hair_color, TextView.BufferType.EDITABLE
+                )
+            }
+            if (binding.editTextTextPersonName5.text.toString() == viewModel.response.value?.skin_color && list1[4] == 99999) {
+                viewModel.updateCorr()
+                binding.editTextTextPersonName5.setTextColor(Color.parseColor("#AEF78E"))
+                binding.editTextTextPersonName5.setText(
+                    viewModel.response.value?.skin_color, TextView.BufferType.EDITABLE
+                )
+            } else if (binding.editTextTextPersonName5.text.toString() != viewModel.response.value?.skin_color && list1[4] == 99999) {
+                binding.editTextTextPersonName5.setTextColor(Color.parseColor("#FB3640"))
+                binding.editTextTextPersonName5.setText(
+                    viewModel.response.value?.skin_color, TextView.BufferType.EDITABLE
+                )
+            }
+            if (binding.editTextTextPersonName6.text.toString() == viewModel.response.value?.eye_color && list1[5] == 99999) {
+                viewModel.updateCorr()
+                binding.editTextTextPersonName6.setTextColor(Color.parseColor("#AEF78E"))
+                binding.editTextTextPersonName6.setText(
+                    viewModel.response.value?.eye_color, TextView.BufferType.EDITABLE
+                )
+            } else if (binding.editTextTextPersonName6.text.toString() != viewModel.response.value?.eye_color && list1[5] == 99999) {
+                binding.editTextTextPersonName6.setTextColor(Color.parseColor("#FB3640"))
+                binding.editTextTextPersonName6.setText(
+                    viewModel.response.value?.eye_color, TextView.BufferType.EDITABLE
+                )
+            }
+            if (binding.editTextTextPersonName7.text.toString() == viewModel.response.value?.birth_year && list1[6] == 99999) {
+                viewModel.updateCorr()
+                binding.editTextTextPersonName7.setTextColor(Color.parseColor("#AEF78E"))
+                binding.editTextTextPersonName7.setText(
+                    viewModel.response.value?.birth_year, TextView.BufferType.EDITABLE
+                )
+            } else if (binding.editTextTextPersonName7.text.toString() != viewModel.response.value?.birth_year && list1[6] == 99999) {
+                binding.editTextTextPersonName7.setTextColor(Color.parseColor("#FB3640"))
+                binding.editTextTextPersonName7.setText(
+                    viewModel.response.value?.birth_year, TextView.BufferType.EDITABLE
+                )
+            }
+            if (binding.editTextTextPersonName8.text.toString() == viewModel.response.value?.gender && list1[7] == 99999) {
+                viewModel.updateCorr()
+                binding.editTextTextPersonName8.setTextColor(Color.parseColor("#AEF78E"))
+                binding.editTextTextPersonName8.setText(
+                    viewModel.response.value?.gender, TextView.BufferType.EDITABLE
+                )
+            } else if (binding.editTextTextPersonName8.text.toString() != viewModel.response.value?.gender && list1[7] == 99999) {
+                binding.editTextTextPersonName8.setTextColor(Color.parseColor("#FB3640"))
+                binding.editTextTextPersonName8.setText(
+                    viewModel.response.value?.gender, TextView.BufferType.EDITABLE
+                )
+            }
+              binding.num.text = viewModel.currQuizzes.toString()
+            viewModel.updateQuiz()
+            dbRef.child("quizStats").child(auth.uid.toString()).child("numQuizzes").setValue(viewModel.currQuizzes)
+            dbRef.child("quizStats").child(auth.uid.toString()).child("numCorrect").setValue(viewModel.currCorrect)
+            check = false
+            binding.button2.isEnabled = false
+        }
 
 //        val x = dbRef.child("quizStats").child(FirebaseAuth.getInstance().uid.toString())
 //            .child("numQuizzes").get()
