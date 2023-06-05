@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
 //            reload()
 //        }
     }
-
+//hello
     private fun createAccount(email: String, password: String) {
         // [START create_user_with_email]
         viewModel.auth.value!!.createUserWithEmailAndPassword(email, password)
