@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
                     val user = viewModel.auth.value!!.currentUser
                     val action = HomeFragmentDirections.actionHomeFragmentToGuesserFragment(false)
                     binding.root.findNavController().navigate(action)
-                    dbRef.child("quizStats").child(user?.uid.toString()).child("numQuizzes").child("value").setValue(1)
+                    dbRef.child("quizStats").child(user?.uid.toString()).child("numQuizzes").child("value").setValue(0)
                     dbRef.child("quizStats").child(user?.uid.toString()).child("numCorrect").child("value").setValue(0)
                 } else {
                     // If sign in fails, display a message to the user.
